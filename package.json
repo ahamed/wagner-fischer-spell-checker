@@ -1,0 +1,15 @@
+{
+  "name": "wagner-fischer",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "server": "cd packages/server && bun --watch index.ts",
+    "client": "cd packages/client && bun run dev",
+    "server-client": "bun run server && bun run client",
+    "clean": "rm -rf node_modules packages/server/node_modules packages/client/node_modules bun.lockb packages/server/bun.lockb packages/client/bun.lockb"
+  }
+}
