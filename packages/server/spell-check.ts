@@ -5,12 +5,14 @@ class SpellChecker {
   words: string[];
   checkingWord: string;
   suggestions: string[];
+  totalSuggestions: number;
 
   constructor(checking: string = '') {
     this.checkingWord = checking;
     this.isCorrect = false;
-    this.words = wordsArray;
+    this.words = wordsArray as string[];
     this.suggestions = [];
+    this.totalSuggestions = 10;
   }
 
   setWord(word: string) {
@@ -32,7 +34,7 @@ class SpellChecker {
 
     this.suggestions = similarWords
       .toSorted((first, second) => first.distance - second.distance)
-      .slice(0, 10)
+      .slice(0, this.totalSuggestions)
       .map(item => item.word);
 
     return this;
@@ -62,7 +64,8 @@ class SpellChecker {
 
         const minimum = Math.min(previousColumn, previousRow, previousDiagonal);
 
-        matrix[rowIndex][columnIndex] = current[rowIndex - 1] === target[columnIndex - 1] ? minimum : minimum + 1;
+        matrix[rowIndex][columnIndex] =
+          current[rowIndex - 1] === target[columnIndex - 1] ? previousDiagonal : minimum + 1;
       }
     }
 

@@ -13,6 +13,14 @@ app.get('/', (req, res) => {
   res.send('Hello');
 });
 
+app.get('/convert', async (req, res) => {
+  const file = await Bun.file('./bengali.txt');
+  const content = await file.text();
+  const lines = content.split('\n').map((line: string) => line.trim());
+  Bun.write('./bengali.json', JSON.stringify(lines));
+  res.send('converted');
+});
+
 app.get('/spell-check', async (req, res) => {
   const word = req.query?.word;
   if (!word) {
